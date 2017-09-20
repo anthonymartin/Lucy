@@ -83,36 +83,28 @@ Lucy.ModuleName.Config.getItem('foo', function(val) {
 # Module Init
 Lucy will automatically run ModuleName.init() on runtime. Include this funciton in your module for it to be run automatically at runtime.
 
-# Example Module:
+# Example User Module:
 
+Modules/User/User.js
 ```
 module.exports = {
 	init: function() {
-		this.authToken = null;
-		this.isAuthenticated = false;
 		this.Config.getItem('auth_token', function(token) {
 			if(token) {
-				UD.User.setAuthToken(token);
-				UD.User.login({method:'token'});
+				Lucy.User.setAuthToken(token);
+				Lucy.User.login({method:'token'});
 			}
+		});
 	},
 	logout: function() {
-		UD.Auth.Events.trigger('auth/logout');
+		Lucy.Auth.Events.trigger('auth/logout');
 	},
 	login: function(options) {
 		// options = { method, name, password }
-		UD.Auth.Events.trigger('auth/login', options);
+		Lucy.Auth.Events.trigger('auth/login', options);
 	}
-	getAuthToken: function() {
-		return this.authToken;
-	},
-	setAuthToken: function(val) {
-		UD.User.Config.setItem('auth_token', val);
-		this.authToken = val;
-		return this;
-	},
 	getEmail: function(successCallback) {
-		UD.User.Config.getItem('email').then(successCallback);
+		Lucy.User.Config.getItem('email').then(successCallback);
 	},
 }
 ```
