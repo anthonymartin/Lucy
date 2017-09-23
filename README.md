@@ -32,7 +32,7 @@ When a new module is created, that new module is automatically assigned to the `
 
 All modules have an event system attached to them. For example:
 
-```
+```javascript
 Lucy.User.Events.on('login', function() {
   // Do something when user logs in
 })
@@ -41,7 +41,7 @@ Lucy.User.Events.on('login', function() {
 or
 
 
-```
+```javascript
 Lucy.Dashboard.Events.listenTo(Lucy.User.Events, 'login', function() {
   // do something on the dashboard when user logs in
 })
@@ -49,7 +49,7 @@ Lucy.Dashboard.Events.listenTo(Lucy.User.Events, 'login', function() {
 
 ALl modules have their configuration accessible and automatically saved to indexeddb (graceful degredation to localstorage).
 
-```
+```javascript
 Lucy.User.Config.setItem('name', 'Lucy');
 ```
 
@@ -69,14 +69,14 @@ The files in each module typically consist of
 # Module configuration
 The config.js for any given module looks like this:
 
-```
+```javascript
 module.exports = {
   your_config_setting: 'value',
   foo: 'bar'
 }
 ```
 These values can be accessed from anywhere on the webpage:
-```
+```javascript
 Lucy.ModuleName.Config.getItem('foo', function(val) {
   // do something with val
 });
@@ -89,7 +89,7 @@ Lucy will automatically run ModuleName.init() on runtime. Include this function 
 # Example User Module:
 
 Modules/User/User.js
-```
+```javascript
 module.exports = {
   init: function() {
     this.Config.getItem('auth_token', function(token) {
