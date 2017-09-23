@@ -1,5 +1,5 @@
 # lucy
-javascript framework
+a frontend javascript framework
 
 
 # About
@@ -34,7 +34,7 @@ All modules have an event system attached to them. For example:
 
 ```
 Lucy.User.Events.on('login', function() {
-	// Do somethig when user logs in
+  // Do something when user logs in
 })
 ```
 
@@ -43,7 +43,7 @@ or
 
 ```
 Lucy.Dashboard.Events.listenTo(Lucy.User.Events, 'login', function() {
-	// do something on the dashboard when user logs in
+  // do something on the dashboard when user logs in
 })
 ```
 
@@ -58,15 +58,16 @@ The files in each module typically consist of
 
 ```
 - Modules
-	- ModuleName
-		- config.js
-		- EventListeners.js
-		- EventHandlers.js
-		- ModuleName.js
+  - ModuleName
+    - config.js
+    - EventListeners.js
+    - EventHandlers.js
+    - DomEventHandlers.js
+    - ModuleName.js
 ```
 
 # Module configuration
-config.js looks like this:
+The config.js for any given module looks like this:
 
 ```
 module.exports = {
@@ -77,40 +78,42 @@ module.exports = {
 These values can be accessed from anywhere on the webpage:
 ```
 Lucy.ModuleName.Config.getItem('foo', function(val) {
-   // do something with val
+  // do something with val
 });
 ```
+All configuration values are persisted automatically to indexeddb or localstorage if indexeddb is not supported.
+
 # Module Init
-Lucy will automatically run ModuleName.init() on runtime. Include this funciton in your module for it to be run automatically at runtime.
+Lucy will automatically run ModuleName.init() on runtime. Include this function in your module for it to be executed at runtime.
 
 # Example User Module:
 
 Modules/User/User.js
 ```
 module.exports = {
-	init: function() {
-		this.Config.getItem('auth_token', function(token) {
-			if(token) {
-				Lucy.User.setAuthToken(token);
-				Lucy.User.login({method:'token'});
-			}
-		});
-	},
-	logout: function() {
-		Lucy.Auth.Events.trigger('auth/logout');
-	},
-	login: function(options) {
-		// options = { method, name, password }
-		Lucy.Auth.Events.trigger('auth/login', options);
-	}
-	getEmail: function(successCallback) {
-		Lucy.User.Config.getItem('email').then(successCallback);
-	},
+  init: function() {
+    this.Config.getItem('auth_token', function(token) {
+      if(token) {
+        Lucy.User.setAuthToken(token);
+        Lucy.User.login({method:'token'});
+      }
+    });
+  },
+  logout: function() {
+    Lucy.Auth.Events.trigger('auth/logout');
+  },
+  login: function(options) {
+    // options = { method, name, password }
+    Lucy.Auth.Events.trigger('auth/login', options);
+  }
+  getEmail: function(successCallback) {
+    Lucy.User.Config.getItem('email').then(successCallback);
+  },
 }
 ```
 
 # Deploying:
-1. Compile with webpack: run `webpack`
+1. Compile with webpack: run `npm run build`
 2. Your compiled javascript will located in dist/bundle.js
 
 # Todo:
