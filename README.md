@@ -3,7 +3,7 @@ a javascript framework designed by Anthony Martin
 
 
 # About
-Lucy was created for people who like to craft modular and portable javascript. It speeds up development time by providing features for common tasks such as persisted user defined configuration.
+Lucy was created for people who like to craft modular and portable javascript. It speeds up development time by providing features for common tasks such as saving user configuration preferences to indexeddb (or localstorage if indexedDB is not supported). Lucy also exposes an event system for implementing event driven architectures in an application. It can work and co-exist with with any other javascript framework or library like React or Angular.
 
 # Features:
 1. Modular
