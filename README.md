@@ -1,4 +1,4 @@
-# lucy
+# Lucy
 a javascript framework designed by Anthony Martin
 
 
